@@ -46,9 +46,14 @@ Plug 'scrooloose/syntastic'
 Plug 'lervag/vimtex'
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+Plug 'google/vim-glaive'
 
 " Initialize plugin system
 call plug#end()
+
+call glaive#Install()
 
 colorscheme gruvbox
 nmap <leader>f :NERDTreeToggle<CR>
@@ -82,3 +87,16 @@ noremap <silent> 0 g0
 noremap <silent> $ g$
 onoremap <silent> j gj
 onoremap <silent> k gk
+
+augroup autoformat_settings
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType dart AutoFormatBuffer dartfmt
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+  autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType python AutoFormatBuffer yapf
+  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+  autocmd FileType vue AutoFormatBuffer prettier
+augroup END
