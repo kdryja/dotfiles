@@ -49,6 +49,7 @@ Plug 'mhinz/vim-signify'
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
+Plug 'vim-scripts/ReplaceWithRegister'
 
 " Initialize plugin system
 call plug#end()
