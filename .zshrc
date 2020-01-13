@@ -111,3 +111,4 @@ alias vim=nvim
 alias gimp="flatpak run org.gimp.GIMP"
 export VISUAL=nvim
 export EDITR=nvim
+export PATH="$PATH":"$HOME/.pub-cache/bin"

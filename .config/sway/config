@@ -17,7 +17,7 @@ set $right l
 set $term kitty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-set $menu "rofi -i -modi drun,run,window -show run" 
+set $menu "rofi -i -combi-modi run,emoji,drun,window -show combi" 
 # | xargs swaymsg exec --
 
 ### Output configuration
@@ -227,11 +227,7 @@ seat * hide_cursor 8000
 bindsym --release Print exec grim -g \"$(slurp)" - | wl-copy
 include /etc/sway/config.d/*
 
+output HDMI-A-1 scale 0.7
 
 bindsym $mod+Left workspace prev
 bindsym $mod+Right workspace next
-
-
-output DP-2 pos 0 364 res 1920x1080
-output DP-1 pos 1920 0 res 2560x1440@165Hz
-output HDMI-A-1 pos 4480 394 res 1680x1050

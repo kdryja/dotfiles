@@ -6,6 +6,7 @@ set autoindent
 set smartindent
 set ignorecase
 set smartcase
+set wildignorecase
 set shiftwidth=2
 set tabstop=2
 set softtabstop=2
@@ -23,6 +24,7 @@ let maplocalleader = ","
 set mouse=a
 set spell
 set clipboard=unnamedplus
+set shortmess+=c
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -41,7 +43,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'valloric/youcompleteme'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/syntastic'
 Plug 'lervag/vimtex'
 Plug 'tpope/vim-fugitive'
@@ -50,6 +52,9 @@ Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'jalvesaq/Nvim-R'
+Plug 'tpope/vim-markdown'
+Plug 'dart-lang/dart-vim-plugin'
 
 " Initialize plugin system
 call plug#end()
@@ -89,15 +94,4 @@ noremap <silent> $ g$
 onoremap <silent> j gj
 onoremap <silent> k gk
 
-augroup autoformat_settings
-  autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
-  autocmd FileType dart AutoFormatBuffer dartfmt
-  autocmd FileType go AutoFormatBuffer gofmt
-  autocmd FileType gn AutoFormatBuffer gn
-  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
-  autocmd FileType java AutoFormatBuffer google-java-format
-  autocmd FileType python AutoFormatBuffer yapf
-  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
-  autocmd FileType vue AutoFormatBuffer prettier
-augroup END
+source /home/kdryja/.vim-coc
