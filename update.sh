@@ -1,13 +1,78 @@
-#/usr/bin/sh
+#!/usr/bin/env bash
+set -e
 
-dir=$(dirname "$(realpath "$0")")
 
-cp ~/.tmux.conf $dir
-cp ~/.vimrc $dir
-cp ~/.zshrc $dir
-cp ~/.vim-coc $dir
-mkdir -p $dir/.config
-cp -R ~/.config/kitty $dir/.config
-cp -R ~/.config/sway $dir/.config
-cp -R ~/.config/waybar $dir/.config
+echo "Welcome to the dotfiles update script!"
+read -r -p "First things first, there are two sets of dotfiles. One for PCs running [w]ayland and one for [x]11. Which one would you like to use?: " response 
+echo
 
+case "$response" in
+  "w")
+    BASE="wayland"
+    ;;
+  "x")
+    BASE="x11"
+    ;;
+  *)
+    echo "Not recognized! Exiting now."
+    exit 1
+    ;;
+esac
+
+DIR=$(dirname "$(realpath "$0")")/$BASE
+CONFIG=$BASE/.config
+BASE_FILES=(
+  ".tmux.conf"
+  ".vimrc"
+  ".zshrc"
+  ".vim-coc"
+  ".config/nvim"
+  ".config/rofi"
+  ".config/kitty"
+  ".zprofile"
+)
+XORG_FILES=(".config/i3")
+WAYLAND_FILES=(".config/sway" ".config/waybar")
+case "$BASE" in
+  "wayland")
+    FILES=(${BASE_FILES[@]} ${WAYLAND_FILES[@]})
+    ;;
+  "x11")
+    FILES=(${BASE_FILES[@]} ${XORG_FILES[@]})
+    ;;
+esac
+
+read -r -p 'Would you like to update the git repo with local changes or rather update local dotfiles with the files pulled from repo? Take either [o]urs or [t]heirs: ' response 
+echo
+case "$response" in
+  "o")
+    for file in ${FILES[@]}; do
+      cmd="cp -r $HOME/$file $DIR"
+      $cmd
+      echo "$cmd"
+    done
+    ;;
+  "t")
+    echo "This operation will overwrite local dotfiles with the remote."
+    read -r -p "Are you sure? [y/N] " response
+    case "$response" in
+      [yY][eE][sS]|[yY]) 
+        echo 'Proceeding.'
+        echo
+        for file in ${FILES[@]}; do
+          cmd="cp -r $DIR/$file $HOME/$file"
+          # $cmd
+          echo "$cmd"
+        done
+        ;;
+      *)
+        echo 'Cancelled!'
+        exit 1
+        ;;
+    esac
+    ;;
+  *)
+    echo 'Not recognized, try either "ours" to update remote changes or "theirs" to update local changes'
+    exit 1
+    ;;
+esac

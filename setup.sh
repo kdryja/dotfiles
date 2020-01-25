@@ -63,7 +63,26 @@ if [[ ! -f ~/.local/share/nvim/site/autoload/plug.vim  ]]
 then
   echo "Installing Vim-Plug"
   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-else
-  echo "Vim-Plug is already installed, skipping"
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    else
+      echo "Vim-Plug is already installed, skipping"
 fi
+
+if [[ ! -d ~/.pyenv ]]
+then
+  echo "Installing pyenv"
+  curl https://pyenv.run | bash
+  exec $SHELL
+else
+  echo "Pyenv is already installed."
+fi
+
+if [[ ! -d ~/.poetry ]]
+then
+  echo "Installing poetry"
+  curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+  exec $SHELL
+else
+  echo "Poetry is already installed."
+fi
+
