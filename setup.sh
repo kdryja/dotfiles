@@ -1,9 +1,69 @@
-#/usr/bin/sh
+#!/usr/bin/env bash
+SKIP="%s is already installed, skipping...\n"
+INSTALL="Installing %s\n"
 
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+if [[ ! -d ~/.tmux/plugins/tpm ]] 
+then
+  echo "Installing TPM (Tmux Plugin Manager)"
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+else
+  echo "TPM already installed, skipping"
+fi
+
+plugin="oh-my-zsh"
+if [[ ! -d ~/.${plugin} ]]
+then
+  printf "$INSTALL" "$plugin"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+  printf "$SKIP" "$plugin"
+fi
+
+plugin="Powerlevel9k"
+if [[ ! -d ~/.oh-my-zsh/custom/themes/${plugin,,} ]]
+then
+  printf "$INSTALL" "$plugin"
+  git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/${plugin}
+else
+  printf "$SKIP" "$plugin"
+fi
+
+plugin="zsh-nvm"
+if [[ ! -d ~/.oh-my-zsh/custom/plugins/${plugin,,} ]]
+then
+  printf "$INSTALL" "$plugin"
+  git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/${plugin}
+  nvm install node
+  nvm alias default node
+  nvm use node
+  npm install -g neovim
+else
+  printf "$SKIP" "$plugin"
+fi
+
+declare -A plugins=( \
+  ["zsh-nvm"]="https://github.com/lukechilds/zsh-nvm"\
+  ["zsh-syntax-highlighting"]="https://github.com/zsh-users/zsh-syntax-highlighting"\
+  ["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions" )
+
+for i in "${!plugins[@]}"
+do
+  plugin_path="$HOME/.oh-my-zsh/custom/plugins/${i}"
+  if [[ ! -d $plugin_path ]]
+  then
+    printf "$INSTALL" "$i"
+    git clone ${plugins[$i]} $plugin_path 
+    echo "Completed!"
+  else
+    printf "$SKIP" "$i"
+  fi
+done
+
+if [[ ! -f ~/.local/share/nvim/site/autoload/plug.vim  ]]
+then
+  echo "Installing Vim-Plug"
+  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+else
+  echo "Vim-Plug is already installed, skipping"
+fi
