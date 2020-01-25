@@ -47,9 +47,9 @@ echo
 case "$response" in
   "o")
     for file in ${FILES[@]}; do
-      cmd="cp -r $HOME/$file $DIR"
-      $cmd
+      cmd="cp -r $HOME/$file $DIR/$file"
       echo "$cmd"
+      $cmd
     done
     ;;
   "t")
@@ -61,8 +61,8 @@ case "$response" in
         echo
         for file in ${FILES[@]}; do
           cmd="cp -r $DIR/$file $HOME/$file"
-          # $cmd
           echo "$cmd"
+          $cmd
         done
         ;;
       *)
