@@ -35,6 +35,10 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-obsession'
+
 Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
@@ -44,13 +48,8 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'scrooloose/syntastic'
 Plug 'lervag/vimtex'
-Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
-Plug 'google/vim-glaive'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'jalvesaq/Nvim-R'
 Plug 'tpope/vim-markdown'
@@ -58,8 +57,6 @@ Plug 'dart-lang/dart-vim-plugin'
 
 " Initialize plugin system
 call plug#end()
-
-call glaive#Install()
 
 colorscheme gruvbox
 nmap <leader>f :NERDTreeToggle<CR>
@@ -69,22 +66,9 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:livepreview_previewer = 'zathura'
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
 inoremap <C-c> <esc>
 let g:vimtex_compiler_progname = 'nvr'
 let g:vimtex_view_method = 'zathura'
-
-let g:syntastic_mode_map = {
-    \ "mode": "active",
-    \ "passive_filetypes": ["tex"] }
 
 " Make sure that movement operators move by visual line rather than physical one.
 noremap <silent> k gk
@@ -95,3 +79,9 @@ onoremap <silent> j gj
 onoremap <silent> k gk
 
 source /home/kdryja/.vim-coc
+let g:python3_host_prog = "$HOME/.pyenv/versions/3.8.1/bin/python" 
+
+let g:coc_global_extensions = ["coc-python", "coc-json", "coc-tsserver", "coc-html", "coc-css", "coc-markdownlint", "coc-texlab"]
+set statusline^=%{coc#status()}
+
+let g:tmux_navigator_no_mappings = 1

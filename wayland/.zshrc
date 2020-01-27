@@ -75,6 +75,7 @@ plugins=(
 	zsh-autosuggestions
   ssh-agent
   zsh-nvm
+  poetry
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -108,7 +109,12 @@ source $ZSH/oh-my-zsh.sh
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 DEFAULT_USER="$(whoami)"
 alias vim=nvim
-alias gimp="flatpak run org.gimp.GIMP"
 export VISUAL=nvim
 export EDITR=nvim
-export PATH="$PATH":"$HOME/.pub-cache/bin"
+# export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+export PATH="/home/kdryja/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+export PATH="$HOME/.poetry/bin:$PATH"
