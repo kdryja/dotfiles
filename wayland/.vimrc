@@ -81,7 +81,7 @@ onoremap <silent> k gk
 source /home/kdryja/.vim-coc
 let g:python3_host_prog = "$HOME/.pyenv/versions/3.8.1/bin/python" 
 
-let g:coc_global_extensions = ["coc-python", "coc-json", "coc-tsserver", "coc-html", "coc-css", "coc-markdownlint", "coc-texlab"]
+let g:coc_global_extensions = ["coc-python", "coc-json", "coc-tsserver", "coc-html", "coc-css", "coc-markdownlint", "coc-texlab", "coc-sh"]
 set statusline^=%{coc#status()}
 
 let g:tmux_navigator_no_mappings = 1

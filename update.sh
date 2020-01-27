@@ -47,7 +47,13 @@ echo
 case "$response" in
   "o")
     for file in ${FILES[@]}; do
-      cmd="cp -r $HOME/$file $DIR/$file"
+      if [[ -d $HOME/$file ]]
+      then
+        mkdir -p $DIR/$file
+        cmd="cp -r $HOME/$file/* $DIR/$file/"
+      else
+        cmd="cp $HOME/$file $DIR/$file"
+      fi
       echo "$cmd"
       $cmd
     done
@@ -60,7 +66,13 @@ case "$response" in
         echo 'Proceeding.'
         echo
         for file in ${FILES[@]}; do
-          cmd="cp -r $DIR/$file $HOME/$file"
+          if [[ -d $DIR/$file ]]
+          then
+            mkdir -p $HOME/$file
+            cmd="cp -r $DIR/$file/* $HOME/$file/"
+          else
+            cmd="cp $DIR/$file $HOME/$file"
+          fi
           echo "$cmd"
           $cmd
         done

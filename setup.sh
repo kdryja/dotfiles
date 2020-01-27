@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-SKIP="%s is already installed, skipping...\n"
-INSTALL="Installing %s\n"
 
 if [[ ! -d ~/.tmux/plugins/tpm ]] 
 then
@@ -10,54 +8,21 @@ else
   echo "TPM already installed, skipping"
 fi
 
-plugin="oh-my-zsh"
-if [[ ! -d ~/.${plugin} ]]
+if [[ ! -d $HOME/.antigen ]]
 then
-  printf "$INSTALL" "$plugin"
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-else
-  printf "$SKIP" "$plugin"
-fi
+  echo "Installing antigen"
+  mkdir $HOME/.antigen
+  curl -L git.io/antigen > $HOME/.antigen/antigen.zsh
+  exec $SHELL
 
-plugin="Powerlevel9k"
-if [[ ! -d ~/.oh-my-zsh/custom/themes/${plugin,,} ]]
-then
-  printf "$INSTALL" "$plugin"
-  git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/${plugin}
-else
-  printf "$SKIP" "$plugin"
-fi
-
-plugin="zsh-nvm"
-if [[ ! -d ~/.oh-my-zsh/custom/plugins/${plugin,,} ]]
-then
-  printf "$INSTALL" "$plugin"
-  git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/${plugin}
+  # Install zsh-nvm
   nvm install node
   nvm alias default node
   nvm use node
   npm install -g neovim
 else
-  printf "$SKIP" "$plugin"
+  echo "Antigen is already installed"
 fi
-
-declare -A plugins=( \
-  ["zsh-nvm"]="https://github.com/lukechilds/zsh-nvm"\
-  ["zsh-syntax-highlighting"]="https://github.com/zsh-users/zsh-syntax-highlighting"\
-  ["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions" )
-
-for i in "${!plugins[@]}"
-do
-  plugin_path="$HOME/.oh-my-zsh/custom/plugins/${i}"
-  if [[ ! -d $plugin_path ]]
-  then
-    printf "$INSTALL" "$i"
-    git clone ${plugins[$i]} $plugin_path 
-    echo "Completed!"
-  else
-    printf "$SKIP" "$i"
-  fi
-done
 
 if [[ ! -f ~/.local/share/nvim/site/autoload/plug.vim  ]]
 then
