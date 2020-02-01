@@ -49,11 +49,13 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lervag/vimtex'
-Plug 'mhinz/vim-signify'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'jalvesaq/Nvim-R'
 Plug 'tpope/vim-markdown'
 Plug 'dart-lang/dart-vim-plugin'
+Plug 'airblade/vim-gitgutter'
+Plug 'google/vim-maktaba'
+Plug 'bazelbuild/vim-bazel'
 
 " Initialize plugin system
 call plug#end()
@@ -83,3 +85,11 @@ let g:python3_host_prog = "$HOME/.pyenv/versions/3.8.1/bin/python"
 
 let g:coc_global_extensions = ["coc-python", "coc-json", "coc-tsserver", "coc-html", "coc-css", "coc-markdownlint", "coc-texlab", "coc-sh"]
 set statusline^=%{coc#status()}
+
+function! GitStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+  return printf('+%d ~%d -%d', a, m, r)
+endfunction
+set statusline+=%{GitStatus()}
+
+let g:go_fmt_command = "goimports"
