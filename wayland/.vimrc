@@ -54,8 +54,6 @@ Plug 'jalvesaq/Nvim-R'
 Plug 'tpope/vim-markdown'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'airblade/vim-gitgutter'
-Plug 'google/vim-maktaba'
-Plug 'bazelbuild/vim-bazel'
 
 " Initialize plugin system
 call plug#end()
