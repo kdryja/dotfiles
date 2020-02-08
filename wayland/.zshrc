@@ -2,20 +2,18 @@ source $HOME/.antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
-
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle git
 antigen bundle gpg-agent
 antigen bundle command-not-found
-
+antigen bundle fzf
+antigen bundle ripgrep
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle lukechilds/zsh-nvm
 antigen bundle kdryja/zsh-poetry
-
 # Load the theme.
 antigen theme powerlevel9k/powerlevel9k
-
 # Tell Antigen that you're done.
 antigen apply
 
@@ -31,9 +29,9 @@ export PATH="/home/kdryja/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.poetry/bin:$PATH"
-
-export PATH="$PATH:$HOME/.local/bin"
+export FZF_DEFAULT_COMMAND='fd'
 
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then

@@ -93,10 +93,10 @@ exec swayidle -w \
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
     # or use $mod+[up|down|left|right]
-    # bindsym $mod+Left focus left
+    bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
-    # bindsym $mod+Right focus right
+    bindsym $mod+Right focus right
 
     # _move_ the focused window with the same, but add Shift
     bindsym $mod+Shift+$left move left
@@ -213,7 +213,6 @@ bindsym XF86AudioNext exec --no-startup-id playerctl next
 exec --no-startup-id 'nm-applet --indicator'
 exec --no-startup-id 'redshift'
 
-
 #
 # Status Bar:
 #
@@ -234,6 +233,3 @@ include /etc/sway/config.d/*
 
 # output HDMI-A-1 scale 0.7
 output eDP-1 scale 1
-
-bindsym $mod+Left workspace prev
-bindsym $mod+Right workspace next

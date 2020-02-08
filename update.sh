@@ -25,7 +25,6 @@ BASE_FILES=(
   ".tmux.conf"
   ".vimrc"
   ".zshrc"
-  ".vim-coc"
   ".config/nvim"
   ".config/rofi"
   ".config/kitty"
