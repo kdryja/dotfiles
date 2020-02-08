@@ -23,12 +23,12 @@ DIR=$(dirname "$(realpath "$0")")/$BASE
 CONFIG=$BASE/.config
 BASE_FILES=(
   ".tmux.conf"
-  ".vimrc"
   ".zshrc"
   ".config/nvim"
   ".config/rofi"
   ".config/kitty"
   ".zprofile"
+  ".gitconfig"
 )
 XORG_FILES=(".config/i3")
 WAYLAND_FILES=(".config/sway" ".config/waybar")

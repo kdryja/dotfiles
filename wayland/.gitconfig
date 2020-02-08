@@ -1,0 +1,8 @@
+[user]
+	email = kdryja@gmail.com
+	name = devon96
+	signingkey = 571409B7B42F05E9
+[color]
+  ui = auto
+[commit]
+  gpgsign = true
