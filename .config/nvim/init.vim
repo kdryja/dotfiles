@@ -32,6 +32,8 @@ set hidden
 set cmdheight=2
 set updatetime=300
 set signcolumn=yes
+set redrawtime=10000
+set list listchars=tab:\|\ ,trail:. 
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -58,6 +60,8 @@ Plug 'tpope/vim-markdown'
 Plug 'airblade/vim-gitgutter'
 Plug 'tomlion/vim-solidity'
 Plug 'junegunn/fzf.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'sebdah/vim-delve'
 
 " Initialize plugin system
 call plug#end()
@@ -89,6 +93,11 @@ imap <silent> jj <esc>
 imap <C-c> <esc>
 nmap <leader>f :NERDTreeToggle<CR>
 
+let g:go_fmt_fail_silently = 1
+autocmd BufEnter * :syntax sync fromstart
+let g:indentLine_enabled = 1
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:airline#extensions#tabline#show_buffers = 0
 
 " CoC Specific settings below
 "
