@@ -1,6 +1,6 @@
 # Intro
 
-In this repository you find a collection of all my dotfiles.
+In this repo find a collection of all my dotfiles.
 
 Currently, the repo is divided onto 3 branches:
 
