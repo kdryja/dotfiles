@@ -3,6 +3,6 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
   if [[ $HOST -eq "workstation" ]]; then
     exec startx
   else
-    exec startx
+    exec sway
   fi
 fi
