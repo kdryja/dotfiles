@@ -1,0 +1,15 @@
+[user]
+	email = kdryja@gmail.com
+	name = kdryja
+	signingkey = 571409B7B42F05E9
+[color]
+  ui = auto
+[commit]
+  gpgsign = true
+
+[diff]
+	tool = vimdiff3
+[merge]
+	tool = vimdiff3
+[difftool "vimdiff3"]
+	path = nvim

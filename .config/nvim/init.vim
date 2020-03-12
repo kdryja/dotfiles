@@ -34,6 +34,7 @@ set updatetime=300
 set signcolumn=yes
 set redrawtime=10000
 set list listchars=tab:\|\ ,trail:. 
+set splitright
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -106,7 +107,17 @@ let g:airline#extensions#tabline#show_buffers = 0
 "
 "
 let g:python3_host_prog = "$HOME/.pyenv/versions/3.8.1/bin/python" 
-let g:coc_global_extensions = ["coc-python", "coc-json", "coc-tsserver", "coc-html", "coc-css", "coc-markdownlint", "coc-texlab", "coc-sh"]
+let g:coc_global_extensions = [
+ \"coc-python",
+ \"coc-json",
+ \"coc-tsserver",
+ \"coc-html",
+ \"coc-css",
+ \"coc-markdownlint",
+ \"coc-texlab",
+ \"coc-sh"
+ \]
+
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
