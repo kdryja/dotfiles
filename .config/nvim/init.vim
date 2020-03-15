@@ -90,7 +90,7 @@ let g:go_fmt_command = "goimports"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 noremap <silent> <C-p> :Files<CR>
-imap <silent> jj <esc> 
+inoremap <silent> jj <esc> 
 imap <C-c> <esc>
 nmap <leader>f :NERDTreeToggle<CR>
 
