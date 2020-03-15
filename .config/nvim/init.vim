@@ -49,7 +49,6 @@ Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-obsession'
 
 Plug 'morhetz/gruvbox'
-Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
@@ -63,6 +62,7 @@ Plug 'tomlion/vim-solidity'
 Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'sebdah/vim-delve'
+Plug 'mcchrish/nnn.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -91,8 +91,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 noremap <silent> <C-p> :Files<CR>
 inoremap <silent> jj <esc> 
-imap <C-c> <esc>
-nmap <leader>f :NERDTreeToggle<CR>
+inoremap <C-c> <esc>
 
 let g:go_fmt_fail_silently = 1
 autocmd BufEnter * :syntax sync fromstart
@@ -100,11 +99,33 @@ let g:indentLine_enabled = 1
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:airline#extensions#tabline#show_buffers = 0
 
+" NNN configs
+" Floating window (neovim)
+function! s:layout()
+  let buf = nvim_create_buf(v:false, v:true)
+
+  let height = &lines - (float2nr(&lines / 3))
+  let width = float2nr(&columns - (&columns * 2 / 3))
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': 2,
+        \ 'col': 8,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
+let g:nnn#layout = 'call ' . string(function('<SID>layout')) . '()'
+" Extra binds for more options to open nnn files
+let g:nnn#action = {
+      \ '<c-t>': 'tab split',
+      \ '<c-x>': 'split',
+      \ '<c-v>': 'vsplit' }
+
+
 " CoC Specific settings below
-"
-"
-"
-"
 "
 let g:python3_host_prog = "$HOME/.pyenv/versions/3.8.1/bin/python" 
 let g:coc_global_extensions = [
