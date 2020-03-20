@@ -3,7 +3,6 @@ set number                     " Show current line number
 set relativenumber             " Show relative line numbers
 set cursorline  
 set autoindent
-set smartindent
 set ignorecase
 set smartcase
 set wildignorecase
@@ -35,11 +34,14 @@ set signcolumn=yes
 set redrawtime=10000
 set list listchars=tab:\|\ ,trail:. 
 set splitright
+set fdm=marker
+set foldlevel=99
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 call plug#begin('~/.local/share/nvim/plugged')
 
+" tpope plugins {{{
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
@@ -47,22 +49,40 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-obsession'
+" }}}
 
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ryanoasis/vim-devicons'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'lervag/vimtex'
 Plug 'tpope/vim-markdown'
 Plug 'airblade/vim-gitgutter'
 Plug 'tomlion/vim-solidity'
 Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'sebdah/vim-delve'
-Plug 'mcchrish/nnn.vim'
+Plug 'sedm0784/vim-you-autocorrect'
+
+" Coc extensions {{{
+Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tabnine', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
+Plug 'fannheyward/coc-markdownlint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'fannheyward/coc-texlab', {'do': 'yarn install --frozen-lockfile'}
+Plug 'josa42/coc-sh', {'do': 'yarn install --frozen-lockfile'}
+" }}}
+
+Plug 'ryanoasis/vim-devicons'
 
 " Initialize plugin system
 call plug#end()
@@ -86,12 +106,13 @@ function! GitStatus()
 endfunction
 set statusline+=%{GitStatus()}
 
-let g:go_fmt_command = "goimports"
+" let g:go_fmt_command = "goimports"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+
 noremap <silent> <C-p> :Files<CR>
-inoremap <silent> jj <esc> 
-inoremap <C-c> <esc>
+inoremap jj <Esc>
+inoremap <C-c> <Esc>
 
 let g:go_fmt_fail_silently = 1
 autocmd BufEnter * :syntax sync fromstart
@@ -99,45 +120,10 @@ let g:indentLine_enabled = 1
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:airline#extensions#tabline#show_buffers = 0
 
-" NNN configs
-" Floating window (neovim)
-function! s:layout()
-  let buf = nvim_create_buf(v:false, v:true)
+nnoremap <space>e :CocCommand explorer<CR>
 
-  let height = &lines - (float2nr(&lines / 3))
-  let width = float2nr(&columns - (&columns * 2 / 3))
-
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': 2,
-        \ 'col': 8,
-        \ 'width': width,
-        \ 'height': height
-        \ }
-
-  call nvim_open_win(buf, v:true, opts)
-endfunction
-let g:nnn#layout = 'call ' . string(function('<SID>layout')) . '()'
-" Extra binds for more options to open nnn files
-let g:nnn#action = {
-      \ '<c-t>': 'tab split',
-      \ '<c-x>': 'split',
-      \ '<c-v>': 'vsplit' }
-
-
-" CoC Specific settings below
-"
-let g:python3_host_prog = "$HOME/.pyenv/versions/3.8.1/bin/python" 
-let g:coc_global_extensions = [
- \"coc-python",
- \"coc-json",
- \"coc-tsserver",
- \"coc-html",
- \"coc-css",
- \"coc-markdownlint",
- \"coc-texlab",
- \"coc-sh"
- \]
+" CoC Specific settings {{{
+let g:python3_host_prog = "/usr/bin/python" 
 
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
@@ -162,6 +148,12 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" Highlight on cursor hold 
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Open yanklist
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -172,16 +164,12 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
  " Remap for format selected region
 nmap <leader>t  <Plug>(coc-format-selected)
 " Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
@@ -200,6 +188,7 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 augroup mygroup
@@ -209,3 +198,4 @@ augroup mygroup
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
+" }}}

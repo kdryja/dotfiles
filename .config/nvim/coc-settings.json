@@ -8,6 +8,11 @@
     }
   },
   "html.format.enable": true,
-  "html.validate.html": true
+  "html.validate.html": true,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.icon.enableVimDevicons": true,
+  "explorer.quitOnOpen": true,
+  "latex.build.onSave": true,
+  "latex.forwardSearch.executable": "zathura"
 }
 
