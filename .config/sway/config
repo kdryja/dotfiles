@@ -9,7 +9,7 @@ set $right l
 set $term alacritty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-set $menu "rofi -i -combi-modi run,emoji,drun,window -show combi" 
+set $menu "wofi -S run,drun" 
 
 ### Output configuration
 #
