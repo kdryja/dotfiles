@@ -36,6 +36,7 @@ set list listchars=tab:\|\ ,trail:.
 set splitright
 set fdm=marker
 set foldlevel=99
+set conceallevel=0
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -61,7 +62,6 @@ Plug 'tpope/vim-markdown'
 Plug 'airblade/vim-gitgutter'
 Plug 'tomlion/vim-solidity'
 Plug 'junegunn/fzf.vim'
-Plug 'Yggdroot/indentLine'
 Plug 'sebdah/vim-delve'
 Plug 'sedm0784/vim-you-autocorrect'
 
