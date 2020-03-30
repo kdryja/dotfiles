@@ -1,12 +1,5 @@
 {
   "python.jediEnabled": false,
-  "languageserver": {
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod"],
-      "filetypes": ["go"]
-    }
-  },
   "html.format.enable": true,
   "html.validate.html": true,
   "explorer.icon.enableNerdfont": true,
