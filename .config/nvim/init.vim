@@ -64,11 +64,30 @@ Plug 'tomlion/vim-solidity'
 Plug 'junegunn/fzf.vim'
 Plug 'sebdah/vim-delve'
 Plug 'sedm0784/vim-you-autocorrect'
-
 Plug 'ryanoasis/vim-devicons'
+Plug 'junegunn/goyo.vim'
 
 " Initialize plugin system
 call plug#end()
+
+let g:coc_global_extensions=[
+  \'coc-explorer',
+  \'coc-python',
+  \'coc-json',
+  \'coc-tsserver',
+  \'coc-html',
+  \'coc-css',
+  \'coc-prettier',
+  \'coc-highlight',
+  \'coc-yank',
+  \'coc-pairs',
+  \'coc-markdownlint',
+  \'coc-sh',
+  \'coc-dictionary',
+  \'coc-texlab',
+  \'coc-word'
+  \]
+
 colorscheme gruvbox
 
 let g:livepreview_previewer = 'zathura'
