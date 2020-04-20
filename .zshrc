@@ -49,3 +49,4 @@ man() {
     LESS_TERMCAP_us=$'\e[01;32m' \
     command man "$@"
 }
+alias ssh="TERM=xterm-256color ssh"
