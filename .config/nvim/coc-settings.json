@@ -6,6 +6,14 @@
   "explorer.icon.enableVimDevicons": true,
   "explorer.quitOnOpen": true,
   "latex.build.onSave": true,
-  "latex.forwardSearch.executable": "zathura"
+  "latex.forwardSearch.executable": "zathura",
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod"],
+      "disableWorkspaceFolders": true,
+      "filetypes": ["go"]
+    }
+  }
 }
 
